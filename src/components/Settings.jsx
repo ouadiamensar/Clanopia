@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { Link } from "react-router-dom";
@@ -490,7 +490,6 @@ const Settings = () => {
       </div>
     </div>
   );
-
 
   return (
     <div className={`min-h-screen max-w-screen text-base flex ${getBgColor()}`}>

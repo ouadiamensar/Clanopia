@@ -40,7 +40,7 @@ import {
   onSnapshot,
   where,
 } from "firebase/firestore";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import { useLanguage } from "../context/LanguageContext";
 import unvisible from "../assets/unvisible2.png";
 import { useNavigate } from "react-router-dom";

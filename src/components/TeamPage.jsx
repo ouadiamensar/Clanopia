@@ -13,7 +13,7 @@ import {
 import { auth, db } from "../firebase";
 import Sidebar from "./Sidebar";
 import { BsArrowUpRightSquareFill } from "react-icons/bs";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import { useLanguage } from "../context/LanguageContext";
 
 const TeamPage = () => {

@@ -6,7 +6,7 @@ import CreateCommunity from "./CreateMyCommunity.jsx";
 import Sidebar from "./Sidebar";
 import ExploreCommunity from "./ExploreCommunity.jsx";
 import CommunitiesSidebar from "./CommunitiesSidebar.jsx";
-import RightSideBar from "./rightSideBar.jsx";
+import RightSideBar from "./RightSideBar.jsx";
 import JoinedCommunities from "./JoinedCommunitiesPage";
 import MyOwnCommunities from "./MyOwnCommunities";
 

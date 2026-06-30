@@ -34,7 +34,7 @@ import {
 } from "react-icons/ri";
 import { onAuthStateChanged } from "firebase/auth";
 import Sidebar from "./Sidebar";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 
 const CommunitySettings = () => {
   const { category, communityId } = useParams();

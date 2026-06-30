@@ -11,7 +11,7 @@ import {
 import { auth, db } from "../firebase";
 import Sidebar from "./Sidebar";
 import LoadingSpinner from "./loadingSpinner";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import CommunityPostCard from "./smallComp/CommunityPostCard";
 import PostCard from "./smallComp/PostCard";
 import TeamCard from "./smallComp/TeamCard";
@@ -373,7 +373,9 @@ const SavedPage = () => {
                     {t("savedPage.title")}
                   </h1>
                   <p className={getSecondaryTextColor()}>
-                    {t("savedPage.subtitle", { count: getAllSavedItems().length })}
+                    {t("savedPage.subtitle", {
+                      count: getAllSavedItems().length,
+                    })}
                   </p>
                 </div>
               </div>
@@ -451,7 +453,8 @@ const SavedPage = () => {
                     : `${getCardBg()} ${getHoverColor()} border ${getBorderColor()}`
                 }`}>
                 <RiArticleLine className="w-4 h-4" />
-                {t("savedPage.posts")} ({savedNormalPosts.length + savedCommunityPosts.length})
+                {t("savedPage.posts")} (
+                {savedNormalPosts.length + savedCommunityPosts.length})
               </button>
 
               {activeTab === "posts" && (
@@ -493,10 +496,14 @@ const SavedPage = () => {
                 className={`${getCardBg()} rounded-2xl p-12 text-center shadow-lg border ${getBorderColor()}`}>
                 <div className="text-6xl mb-4">📚</div>
                 <h3 className={`text-2xl font-bold ${getTextColor()} mb-2`}>
-                  {searchQuery ? t("savedPage.noResults") : t("savedPage.noSavedItems")}
+                  {searchQuery
+                    ? t("savedPage.noResults")
+                    : t("savedPage.noSavedItems")}
                 </h3>
                 <p className={`${getSecondaryTextColor()} mb-6`}>
-                  {searchQuery ? t("savedPage.adjustSearch") : t("savedPage.startSaving")}
+                  {searchQuery
+                    ? t("savedPage.adjustSearch")
+                    : t("savedPage.startSaving")}
                 </p>
               </div>
             ) : (

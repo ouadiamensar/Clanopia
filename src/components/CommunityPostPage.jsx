@@ -20,7 +20,7 @@ import { CiEdit } from "react-icons/ci";
 import { FaSave } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { IoIosHeartDislike } from "react-icons/io";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import CommunityPostCard from "./smallComp/CommunityPostCard";
 
 const PostPage = () => {

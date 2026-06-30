@@ -10,9 +10,9 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import Sidebar from "./Sidebar";
-import LoadingSpinner from "./loadingSpinner";
+import LoadingSpinner from "./LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import {
   RiTeamLine,
   RiSettings3Line,

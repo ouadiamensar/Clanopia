@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef, useCallback } from "react";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import Sidebar from "./Sidebar";
 import CommunityCard from "./smallComp/CommunityCard";
 import ProfileCard from "./smallComp/ProfileCard";
-import TeamCard from "./smallComp/teamCard";
+import TeamCard from "./smallComp/TeamCard";
 import PostCard from "./smallComp/PostCard";
 import CommunityPostCard from "./smallComp/CommunityPostCard";
 import {

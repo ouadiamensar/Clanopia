@@ -8,9 +8,9 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { ChevronLeft, ChevronRight, Search, X, Menu } from "lucide-react";
-import TeamCard from "./smallComp/teamCard";
+import TeamCard from "./smallComp/TeamCard";
 import Sidebar from "./Sidebar";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import { useLanguage } from "../context/LanguageContext";
 
 const categories = [

@@ -28,7 +28,6 @@ const Login = () => {
     const savedTheme = localStorage.getItem("themeMode");
     return savedTheme || "light";
   });
-  // حالات إعادة تعيين كلمة المرور
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetMessage, setResetMessage] = useState("");

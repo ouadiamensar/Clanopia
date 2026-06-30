@@ -16,7 +16,7 @@ import {
   FiChevronDown,
   FiChevronUp,
 } from "react-icons/fi";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import { useLanguage } from "../context/LanguageContext";
 
 const ExploreProfiles = () => {

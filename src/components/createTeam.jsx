@@ -16,7 +16,7 @@ import {
   setDoc,
   onSnapshot,
 } from "firebase/firestore";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import { useLanguage } from "../context/LanguageContext";
 
 const CreateTeam = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useCallback, useMemo } from "react";
-import RightSideBar from "./rightSideBar";
+import RightSideBar from "./RightSideBar";
 import Sidebar from "./Sidebar";
 import { useParams, Link } from "react-router";
 import {
@@ -60,7 +60,7 @@ import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { onAuthStateChanged } from "firebase/auth";
 import CommunityPostCard from "./smallComp/CommunityPostCard";
-import Profile from "./profile";
+import Profile from "./Profile";
 import { useLanguage } from "../context/LanguageContext";
 import { LuCrown } from "react-icons/lu";
 

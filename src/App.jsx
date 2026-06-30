@@ -10,7 +10,7 @@ import Explore from "./components/ExploreTeams";
 import TeamPage from "./components/TeamPage";
 import MyOwnTeams from "./components/MyOwnTeams";
 import Communities from "./components/Communities";
-import ProfileManage from "./components/profileManage";
+import ProfileManage from "./components/ProfileManage";
 import Profile from "./components/profile";
 import PostPage from "./components/PostPage";
 import ExploreProfiles from "./components/ExploreProfiles";

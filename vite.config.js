@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: "/Clanopia" ,
+  base: "/" ,
   resolve: {
     alias: {
       'simple-peer': 'simple-peer/simplepeer.min.js'

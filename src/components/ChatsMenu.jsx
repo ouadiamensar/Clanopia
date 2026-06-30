@@ -37,8 +37,8 @@ import {
 import EmojiPicker from "emoji-picker-react";
 import { sendMessage } from "./sendMessage.js";
 import useChatMessages from "./useChatMessages.js";
-import AudioRecorder from "./audioRecorder.jsx";
-import AudioMessage from "./audioMessage.jsx";
+import AudioRecorder from "./AudioRecorder.jsx";
+import AudioMessage from "./AudioMessage.jsx";
 import { IoIosImages } from "react-icons/io";
 import { IoDocumentsSharp } from "react-icons/io5";
 import MediaUploadWithPreview from "./MediaUploadWithPreview.jsx";

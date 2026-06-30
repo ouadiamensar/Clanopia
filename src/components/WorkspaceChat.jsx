@@ -62,7 +62,7 @@ import {
   MdReply,
 } from "react-icons/md";
 import WorkspaceAudioRecorder from "./WorkspaceAudioRecorder";
-import AudioMessage from "./audioMessage";
+import AudioMessage from "./AudioMessage";
 import NotificationBell from "./NotificationBell";
 import { useLanguage } from "../context/LanguageContext";
 

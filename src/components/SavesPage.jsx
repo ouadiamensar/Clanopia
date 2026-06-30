@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import Sidebar from "./Sidebar";
-import LoadingSpinner from "./loadingSpinner";
+import LoadingSpinner from "./LoadingSpinner";
 import RightSideBar from "./RightSideBar";
 import CommunityPostCard from "./smallComp/CommunityPostCard";
 import PostCard from "./smallComp/PostCard";

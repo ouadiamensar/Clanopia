@@ -25,7 +25,7 @@ import ActiveMeetingMonitor from "./components/ActiveMeetingMonitor";
 import ActiveMeetingNotifications from "./components/ActiveMeetingNotifications";
 import SharedDocs from "./components/SharedDocs";
 import TeamMembers from "./components/TeamMembers";
-import CommunityPage from "./components/communityPage";
+import CommunityPage from "./components/CommunityPage";
 import CommunityPostPage from "./components/CommunityPostPage";
 import Settings from "./components/Settings";
 import WorkspaceSettings from "./components/WorkspaceSettings";

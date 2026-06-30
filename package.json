@@ -12,8 +12,6 @@
   "dependencies": {
     "@daily-co/daily-js": "^0.83.1",
     "@daily-co/daily-react": "^0.23.2",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
     "@livekit/components-react": "^2.9.14",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",

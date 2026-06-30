@@ -7,6 +7,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  base: import.meta.env.VITE_BASE_PATH || "/Clanopia" ,
   resolve: {
     alias: {
       'simple-peer': 'simple-peer/simplepeer.min.js'

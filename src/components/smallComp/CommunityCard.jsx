@@ -14,7 +14,6 @@ import { auth, db } from "../../firebase";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import { FaTrash, FaEllipsisV } from "react-icons/fa";
-import { AnimatePresence } from "framer-motion";
 
 async function joinCommunity(communityId, category) {
   try {
@@ -315,68 +314,60 @@ const CommunityCard = ({
 
   return (
     <>
-      <AnimatePresence>
-        {showDeleteConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowDeleteConfirm(false)}>
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className={`${getCardBg()} rounded-2xl shadow-2xl max-w-sm w-full p-6 border ${getBorderColor()}`}
-              onClick={(e) => e.stopPropagation()}>
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                    <FaTrash className="text-red-500 dark:text-red-400 text-xl" />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h4 className={`font-bold ${getTextColor()} text-lg mb-1`}>
-                    Delete Community?
-                  </h4>
-                  <p className={`${getSecondaryTextColor()} text-sm mb-4`}>
-                    Are you sure you want to delete this community? This action
-                    cannot be undone.
-                  </p>
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => setShowDeleteConfirm(false)}
-                      className={`flex-1 px-4 py-2 rounded-xl font-medium transition-all ${
-                        themeMode === "light"
-                          ? "bg-gray-100 hover:bg-gray-200 text-gray-700"
-                          : "bg-gray-700 hover:bg-gray-600 text-gray-300"
-                      }`}
-                      disabled={isDeleting}>
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleDeletePost}
-                      className="flex-1 px-4 py-2 rounded-xl font-medium transition-all bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 flex items-center justify-center gap-2"
-                      disabled={isDeleting}>
-                      {isDeleting ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          Deleting...
-                        </>
-                      ) : (
-                        <>
-                          <FaTrash className="w-4 h-4" />
-                          Delete
-                        </>
-                      )}
-                    </button>
-                  </div>
+      {showDeleteConfirm && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setShowDeleteConfirm(false)}>
+          <div
+            className={`${getCardBg()} rounded-2xl shadow-2xl max-sm w-full p-6 border ${getBorderColor()}`}
+            onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                  <FaTrash className="text-red-500 dark:text-red-400 text-xl" />
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <div className="flex-1">
+                <h4 className={`font-bold ${getTextColor()} text-lg mb-1`}>
+                  Delete Community?
+                </h4>
+                <p className={`${getSecondaryTextColor()} text-sm mb-4`}>
+                  Are you sure you want to delete this community? This action
+                  cannot be undone.
+                </p>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setShowDeleteConfirm(false)}
+                    className={`flex-1 px-4 py-2 rounded-xl font-medium transition-all ${
+                      themeMode === "light"
+                        ? "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                        : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                    }`}
+                    disabled={isDeleting}>
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleDeletePost}
+                    className="flex-1 px-4 py-2 rounded-xl font-medium transition-all bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 flex items-center justify-center gap-2"
+                    disabled={isDeleting}>
+                    {isDeleting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Deleting...
+                      </>
+                    ) : (
+                      <>
+                        <FaTrash className="w-4 h-4" />
+                        Delete
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Link
         to={`/community/${category}/${id}/${name}`}
@@ -444,7 +435,6 @@ const CommunityCard = ({
                 </button>
               )}
 
-              {/* Menu Button - Only show if user is owner */}
               {isOwner && (
                 <div className="relative">
                   <button
@@ -457,28 +447,22 @@ const CommunityCard = ({
                     <FaEllipsisV className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" />
                   </button>
 
-                  {/* Dropdown Menu */}
-                  <AnimatePresence>
-                    {showMenu && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                        className={`absolute right-0 mt-2 w-48 rounded-xl shadow-lg overflow-hidden border ${getBorderColor()} ${getMenuBg()} z-50`}>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setShowMenu(false);
-                            setShowDeleteConfirm(true);
-                          }}
-                          className="w-full px-4 py-3 text-left text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-3 transition-colors">
-                          <FaTrash className="text-red-500" />
-                          <span>Delete Community</span>
-                        </button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {showMenu && (
+                    <div
+                      className={`absolute right-0 mt-2 w-48 rounded-xl shadow-lg overflow-hidden border ${getBorderColor()} ${getMenuBg()} z-50`}>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setShowMenu(false);
+                          setShowDeleteConfirm(true);
+                        }}
+                        className="w-full px-4 py-3 text-left text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-3 transition-colors">
+                        <FaTrash className="text-red-500" />
+                        <span>Delete Community</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

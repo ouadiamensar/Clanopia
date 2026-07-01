@@ -5,7 +5,6 @@ import { auth, db } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
-import { motion } from "framer-motion";
 
 const TeamCard = ({
   img,
@@ -201,10 +200,7 @@ const TeamCard = ({
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+    <div
       className={`w-full mb-5 ${getCardBg()} rounded-2xl shadow-md transition duration-300 ease-in-out transform hover:shadow-lg hover:shadow-purple-900/30 hover:scale-[1.02] cursor-pointer overflow-hidden flex flex-col group border ${getBorderColor()} ${
         isMobile ? "max-w-full" : "max-w-s"
       }`}>
@@ -310,7 +306,7 @@ const TeamCard = ({
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

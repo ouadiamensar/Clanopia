@@ -42,7 +42,6 @@ import {
   FaYoutube,
   FaInstagram,
 } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
 
 const MainProfileInfos = () => {
   const navigate = useNavigate();
@@ -414,70 +413,60 @@ const MainProfileInfos = () => {
       <div className="flex">
         <div className="flex-1 p-4 md:p-6 pt-5">
           <div className="max-w-6xl mx-auto">
-            {/* Popup */}
-            <AnimatePresence>
-              {showInfoPopup && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-                  onClick={(e) => {
-                    if (e.target === e.currentTarget) setShowInfoPopup(false);
-                  }}>
-                  <div className={`${getCardBg()} rounded-2xl max-w-md w-full p-6 border ${getBorderColor()} shadow-2xl`}>
-                    <div className="text-center mb-6">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-blue-500 flex items-center justify-center mx-auto mb-3">
-                        <HiInformationCircle className="text-3xl text-white" />
-                      </div>
-                      <h2 className={`text-xl font-bold ${getTextColor()}`}>
-                        Complete Your Profile
-                      </h2>
-                      <p className={`${getSecondaryTextColor()} text-sm mt-1`}>
-                        Please fill in the required fields below
-                      </p>
+            {showInfoPopup && (
+              <div
+                className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) setShowInfoPopup(false);
+                }}>
+                <div className={`${getCardBg()} rounded-2xl max-w-md w-full p-6 border ${getBorderColor()} shadow-2xl`}>
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-blue-500 flex items-center justify-center mx-auto mb-3">
+                      <HiInformationCircle className="text-3xl text-white" />
                     </div>
-
-                    <div className="space-y-2 mb-6">
-                      {[
-                        { label: "Full Name", completed: profile.name?.trim() !== "" },
-                        { label: "Profile Image", completed: profile.image instanceof File || profileBefore?.ProfileImageURL || previewImage },
-                        { label: "Banner Image", completed: profile.banner instanceof File || profileBefore?.BannerImageURL || previewBanner },
-                      ].map((item, idx) => (
-                        <div key={idx} className={`flex items-center gap-3 p-2 rounded-lg ${item.completed ? "bg-green-500/10" : "bg-red-500/10"}`}>
-                          <div className={`w-6 h-6 rounded-full flex items-center justify-center ${item.completed ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}`}>
-                            {item.completed ? <HiCheck className="text-sm" /> : <HiExclamationCircle className="text-sm" />}
-                          </div>
-                          <span className={`text-sm ${getTextColor()}`}>{item.label}</span>
-                          <span className={`text-xs ml-auto ${item.completed ? "text-green-400" : "text-red-400"}`}>
-                            {item.completed ? "✓ Done" : "Required"}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <button
-                      onClick={() => {
-                        if (!isProfileComplete()) {
-                          setSaveMessage({ type: "error", text: "⚠️ Please complete all required fields" });
-                          setTimeout(() => setSaveMessage({ type: "", text: "" }), 4000);
-                          return;
-                        }
-                        setShowInfoPopup(false);
-                      }}
-                      className={`w-full py-2.5 rounded-xl font-medium transition-all duration-300 ${isProfileComplete() ? `${getGradientBg()} text-white hover:scale-[1.02]` : "bg-gray-500 text-white cursor-not-allowed opacity-50"}`}>
-                      {isProfileComplete() ? "Get Started" : "Complete All Fields"}
-                    </button>
+                    <h2 className={`text-xl font-bold ${getTextColor()}`}>
+                      Complete Your Profile
+                    </h2>
+                    <p className={`${getSecondaryTextColor()} text-sm mt-1`}>
+                      Please fill in the required fields below
+                    </p>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
-            {/* Header */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`mb-6 ${isMobile && "mt-14"}`}>
+                  <div className="space-y-2 mb-6">
+                    {[
+                      { label: "Full Name", completed: profile.name?.trim() !== "" },
+                      { label: "Profile Image", completed: profile.image instanceof File || profileBefore?.ProfileImageURL || previewImage },
+                      { label: "Banner Image", completed: profile.banner instanceof File || profileBefore?.BannerImageURL || previewBanner },
+                    ].map((item, idx) => (
+                      <div key={idx} className={`flex items-center gap-3 p-2 rounded-lg ${item.completed ? "bg-green-500/10" : "bg-red-500/10"}`}>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${item.completed ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}`}>
+                          {item.completed ? <HiCheck className="text-sm" /> : <HiExclamationCircle className="text-sm" />}
+                        </div>
+                        <span className={`text-sm ${getTextColor()}`}>{item.label}</span>
+                        <span className={`text-xs ml-auto ${item.completed ? "text-green-400" : "text-red-400"}`}>
+                          {item.completed ? "✓ Done" : "Required"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      if (!isProfileComplete()) {
+                        setSaveMessage({ type: "error", text: "⚠️ Please complete all required fields" });
+                        setTimeout(() => setSaveMessage({ type: "", text: "" }), 4000);
+                        return;
+                      }
+                      setShowInfoPopup(false);
+                    }}
+                    className={`w-full py-2.5 rounded-xl font-medium transition-all duration-300 ${isProfileComplete() ? `${getGradientBg()} text-white hover:scale-[1.02]` : "bg-gray-500 text-white cursor-not-allowed opacity-50"}`}>
+                    {isProfileComplete() ? "Get Started" : "Complete All Fields"}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className={`mb-6 ${isMobile && "mt-14"}`}>
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                   <h1 className={`text-2xl md:text-3xl font-bold ${getTextColor()}`}>
@@ -504,25 +493,20 @@ const MainProfileInfos = () => {
                   )}
                 </button>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Messages */}
-            <AnimatePresence>
-              {saveMessage.text && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className={`mb-4 p-3 rounded-xl text-sm ${saveMessage.type === "success" ? "bg-green-500/10 text-green-400 border border-green-500/30" : "bg-red-500/10 text-red-400 border border-red-500/30"}`}>
-                  {saveMessage.text}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {saveMessage.text && (
+              <div
+                className={`mb-4 p-3 rounded-xl text-sm ${
+                  saveMessage.type === "success"
+                    ? "bg-green-500/10 text-green-400 border border-green-500/30"
+                    : "bg-red-500/10 text-red-400 border border-red-500/30"
+                }`}>
+                {saveMessage.text}
+              </div>
+            )}
 
-            {/* Profile Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
+            <div
               className={`${getCardBg()} rounded-2xl shadow-lg overflow-hidden mb-6 border ${getBorderColor()}`}>
               {/* Banner */}
               <div className="relative h-48 md:h-56 bg-gradient-to-r from-indigo-600 to-blue-600">
@@ -552,7 +536,6 @@ const MainProfileInfos = () => {
                 </div>
               </div>
 
-              {/* Profile Info */}
               <div className="px-6 pb-6">
                 <div className="flex flex-col md:flex-row items-start md:items-end -mt-12 gap-4">
                   <div className="relative">
@@ -590,9 +573,8 @@ const MainProfileInfos = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Tabs */}
             <div className="flex flex-wrap gap-2 mb-6">
               {tabs.map((tab) => (
                 <button
@@ -605,14 +587,9 @@ const MainProfileInfos = () => {
               ))}
             </div>
 
-            {/* Content */}
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className={`${getCardBg()} rounded-2xl shadow-lg p-6 border ${getBorderColor()}`}>
 
-              {/* Basic Info */}
               {activeTab === "basic" && (
                 <div>
                   <h2 className={`text-lg font-bold mb-4 ${getTextColor()}`}>Basic Information</h2>
@@ -696,7 +673,6 @@ const MainProfileInfos = () => {
                 </div>
               )}
 
-              {/* Skills */}
               {activeTab === "skills" && (
                 <div>
                   <h2 className={`text-lg font-bold mb-4 ${getTextColor()}`}>Skills</h2>
@@ -731,7 +707,6 @@ const MainProfileInfos = () => {
                 </div>
               )}
 
-              {/* Links */}
               {activeTab === "links" && (
                 <div>
                   <h2 className={`text-lg font-bold mb-4 ${getTextColor()}`}>Social Links</h2>
@@ -784,7 +759,6 @@ const MainProfileInfos = () => {
                 </div>
               )}
 
-              {/* Additional */}
               {activeTab === "additional" && (
                 <div>
                   <h2 className={`text-lg font-bold mb-4 ${getTextColor()}`}>Additional Information</h2>
@@ -836,7 +810,7 @@ const MainProfileInfos = () => {
                   </div>
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

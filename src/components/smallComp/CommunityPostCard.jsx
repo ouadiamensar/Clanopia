@@ -35,7 +35,6 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { auth, db } from "../../firebase";
-import { motion, AnimatePresence } from "framer-motion";
 
 const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -517,9 +516,7 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
         }
       }
 
-      // Delete saved posts for all users
       try {
-        // Find all users who saved this post
         const usersRef = collection(db, "users");
         const usersSnapshot = await getDocs(usersRef);
         
@@ -814,171 +811,143 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
       ? "bg-black/50 backdrop-blur-sm"
       : "bg-black/80 backdrop-blur-sm";
 
-
-      
-
   return (
     <>
+      {showDeleteToast && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[9999] bg-green-600 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+          <FaCheck className="text-xl" />
+          <span className="font-medium">Post deleted successfully!</span>
+        </div>
+      )}
 
-      <AnimatePresence>
-        {showDeleteToast && (
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            className="fixed top-4 left-1/2 -translate-x-1/2 z-[9999] bg-green-600 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3">
-            <FaCheck className="text-xl" />
-            <span className="font-medium">Post deleted successfully!</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isFullscreen && (
+        <div
+          className="fixed inset-0 bg-black/95 z-[9999] flex flex-col items-center justify-center p-4"
+          onClick={closeFullscreen}>
+          <div className="relative w-full max-w-6xl h-[90vh] flex items-center justify-center">
+            <button
+              onClick={closeFullscreen}
+              className="absolute top-4 right-4 text-white/70 hover:text-white text-3xl transition-colors z-10">
+              <FaTimes />
+            </button>
 
-      <AnimatePresence>
-        {isFullscreen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-[9999] flex flex-col items-center justify-center p-4"
-            onClick={closeFullscreen}>
-            <div className="relative w-full max-w-6xl h-[90vh] flex items-center justify-center">
-              <button
-                onClick={closeFullscreen}
-                className="absolute top-4 right-4 text-white/70 hover:text-white text-3xl transition-colors z-10">
-                <FaTimes />
-              </button>
-
-              <div className="relative w-full h-full flex items-center justify-center">
-                {post.images?.[fullscreenIndex] &&
-                /\.(mp4|webm|ogg|mov|avi)(\?.*)?$/i.test(
-                  post.images[fullscreenIndex],
-                ) ? (
-                  <video
-                    ref={videoRef}
-                    controls
-                    autoPlay
-                    className="w-full h-full object-contain"
-                    src={post.images[fullscreenIndex]}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                ) : (
-                  <img
-                    src={post.images?.[fullscreenIndex]}
-                    alt={`Fullscreen ${fullscreenIndex + 1}`}
-                    className="w-full h-full object-contain"
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                )}
-
-                {post.images?.length > 1 && (
-                  <>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const newIndex =
-                          fullscreenIndex === 0
-                            ? post.images.length - 1
-                            : fullscreenIndex - 1;
-                        setFullscreenIndex(newIndex);
-                        setIsImageLoaded(false);
-                      }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all">
-                      <ChevronLeft size={32} />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const newIndex =
-                          fullscreenIndex === post.images.length - 1
-                            ? 0
-                            : fullscreenIndex + 1;
-                        setFullscreenIndex(newIndex);
-                        setIsImageLoaded(false);
-                      }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all">
-                      <ChevronRight size={32} />
-                    </button>
-                  </>
-                )}
-              </div>
+            <div className="relative w-full h-full flex items-center justify-center">
+              {post.images?.[fullscreenIndex] &&
+              /\.(mp4|webm|ogg|mov|avi)(\?.*)?$/i.test(
+                post.images[fullscreenIndex],
+              ) ? (
+                <video
+                  ref={videoRef}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain"
+                  src={post.images[fullscreenIndex]}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              ) : (
+                <img
+                  src={post.images?.[fullscreenIndex]}
+                  alt={`Fullscreen ${fullscreenIndex + 1}`}
+                  className="w-full h-full object-contain"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
 
               {post.images?.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm">
-                  {fullscreenIndex + 1} / {post.images.length}
-                </div>
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newIndex =
+                        fullscreenIndex === 0
+                          ? post.images.length - 1
+                          : fullscreenIndex - 1;
+                      setFullscreenIndex(newIndex);
+                      setIsImageLoaded(false);
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all">
+                    <ChevronLeft size={32} />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newIndex =
+                        fullscreenIndex === post.images.length - 1
+                          ? 0
+                          : fullscreenIndex + 1;
+                      setFullscreenIndex(newIndex);
+                      setIsImageLoaded(false);
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all">
+                    <ChevronRight size={32} />
+                  </button>
+                </>
               )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      <AnimatePresence>
-        {showShareModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={`fixed inset-0 ${getModalOverlayBg()} z-50 flex items-center justify-center p-4`}
-            onClick={() => setShowShareModal(false)}>
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className={`${getModalBg()} rounded-2xl shadow-2xl max-w-md w-full p-6`}
-              onClick={(e) => e.stopPropagation()}>
-              <div className="flex justify-between items-center mb-6">
-                <h3 className={`text-xl font-bold ${getTextColor()}`}>
-                  Share Post
-                </h3>
+            {post.images?.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm">
+                {fullscreenIndex + 1} / {post.images.length}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Share Modal - بدون motion */}
+      {showShareModal && (
+        <div
+          className={`fixed inset-0 ${getModalOverlayBg()} z-50 flex items-center justify-center p-4`}
+          onClick={() => setShowShareModal(false)}>
+          <div
+            className={`${getModalBg()} rounded-2xl shadow-2xl max-w-md w-full p-6`}
+            onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className={`text-xl font-bold ${getTextColor()}`}>
+                Share Post
+              </h3>
+              <button
+                onClick={() => setShowShareModal(false)}
+                className={`${getMutedTextColor()} hover:text-gray-700 dark:hover:text-gray-200 transition-colors`}>
+                <FaTimes size={22} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-4 gap-3 mb-6">
+              {sharePlatforms.map((item, idx) => (
                 <button
-                  onClick={() => setShowShareModal(false)}
-                  className={`${getMutedTextColor()} hover:text-gray-700 dark:hover:text-gray-200 transition-colors`}>
-                  <FaTimes size={22} />
+                  key={idx}
+                  onClick={() => {
+                    item.action();
+                    setShowShareModal(false);
+                  }}
+                  className="flex flex-col items-center gap-2 group">
+                  <div
+                    className={`w-14 h-14 rounded-full ${item.color} flex items-center justify-center shadow-lg hover:scale-110 transition-transform`}>
+                    <item.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <span className={`text-xs ${getMutedTextColor()}`}>
+                    {item.name}
+                  </span>
                 </button>
-              </div>
+              ))}
+            </div>
 
-              <div className="grid grid-cols-4 gap-3 mb-6">
-                {sharePlatforms.map((item, idx) => (
-                  <motion.button
-                    key={idx}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      item.action();
-                      setShowShareModal(false);
-                    }}
-                    className="flex flex-col items-center gap-2 group">
-                    <div
-                      className={`w-14 h-14 rounded-full ${item.color} flex items-center justify-center shadow-lg hover:scale-110 transition-transform`}>
-                      <item.icon className="w-7 h-7 text-white" />
-                    </div>
-                    <span className={`text-xs ${getMutedTextColor()}`}>
-                      {item.name}
-                    </span>
-                  </motion.button>
-                ))}
-              </div>
+            <button
+              onClick={copyToClipboard}
+              className={`w-full py-3 rounded-xl font-medium transition-all ${
+                themeMode === "light"
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white"
+                  : "bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
+              } shadow-lg hover:shadow-xl`}>
+              {copied ? "✓ Copied!" : "Copy Link"}
+            </button>
+          </div>
+        </div>
+      )}
 
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={copyToClipboard}
-                className={`w-full py-3 rounded-xl font-medium transition-all ${
-                  themeMode === "light"
-                    ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white"
-                    : "bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
-                } shadow-lg hover:shadow-xl`}>
-                {copied ? "✓ Copied!" : "Copy Link"}
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+      {/* Post Card - بدون motion */}
+      <div
         className={`w-full ${getCardBg()} rounded-2xl shadow-xl overflow-hidden border ${getBorderColor()} hover:shadow-2xl transition-all duration-300 mb-6 relative`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}>
@@ -1023,7 +992,6 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
                   <FaEllipsisH size={20} />
                 </button>
 
-                {/* Menu Dropdown */}
                 {showMenu && (
                   <div
                     className={`absolute right-0 mt-2 w-48 rounded-xl shadow-lg overflow-hidden border ${getBorderColor()} ${getCardBg()} z-50`}>
@@ -1046,7 +1014,6 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
                   </div>
                 )}
 
-                {/* Delete Confirmation Popup */}
                 {showDeleteConfirm && (
                   <div
                     className={`absolute right-0 mt-2 w-60 p-3 rounded-xl shadow-lg overflow-hidden border ${getBorderColor()} ${getCardBg()} z-50`}>
@@ -1223,9 +1190,7 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
         <div className={`px-5 py-3 border-t ${getBorderColor()}`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={handleLike}
                 disabled={isLiking}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-colors group ${
@@ -1242,26 +1207,22 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
                   className={`font-medium ${liked ? "text-red-500" : getSecondaryTextColor()}`}>
                   {likeCount}
                 </span>
-              </motion.button>
+              </button>
             </div>
 
             <div className="flex items-center gap-1">
               <Link
                 to={`/community/${post.communityData?.category || post?.category}/${post.communityData?.id || post?.communityId}/${post.communityData?.name || post?.communityName}/${post.creatorName}/${post.id}`}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <button
                   className="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors group">
                   <FaRegCommentDots className="text-xl text-gray-500 group-hover:text-blue-600 dark:text-gray-400 dark:group-hover:text-blue-400 transition-colors" />
                   <span className={getSecondaryTextColor()}>
                     {commentCount}
                   </span>
-                </motion.button>
+                </button>
               </Link>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -1270,11 +1231,9 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
                 className="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors group">
                 <FaRegShareSquare className="text-xl text-gray-500 group-hover:text-blue-600 dark:text-gray-400 dark:group-hover:text-blue-400 transition-colors" />
                 <span className={getSecondaryTextColor()}>Share</span>
-              </motion.button>
+              </button>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={handleSavePost}
                 className="p-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                 title={isSaved ? "Unsave post" : "Save post"}>
@@ -1283,11 +1242,11 @@ const CommunityPostCard = ({ post, themeMode, onPostDeleted }) => {
                 ) : (
                   <FaRegBookmark className="text-2xl text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" />
                 )}
-              </motion.button>
+              </button>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };

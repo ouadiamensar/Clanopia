@@ -26,7 +26,6 @@ import {
 } from "react-icons/ri";
 import { useLanguage } from "../context/LanguageContext";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const SavedPage = () => {
   const [userData, setUserData] = useState(null);
@@ -514,18 +513,15 @@ const SavedPage = () => {
                     : "flex flex-col gap-6"
                 }>
                 {filteredItems.map((item) => (
-                  <motion.div
+                  <div
                     key={`${item.type}-${item.id}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
                     className="h-full">
                     <div className="-mb-6">
                       {item.type === "team"
                         ? renderTeamCard(item)
                         : renderPostCard(item)}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             )}

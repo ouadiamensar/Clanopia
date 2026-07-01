@@ -38,7 +38,6 @@ import {
   FaYoutube,
   FaInstagram,
 } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
 
 const ProfileManage = () => {
   const [profile, setProfile] = useState({
@@ -329,11 +328,7 @@ const ProfileManage = () => {
         <Sidebar themeMode={themeMode} />
         <div className="flex-1 p-4 md:p-6 pt-5">
           <div className="max-w-6xl mx-auto">
-            {/* Header */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`mb-6 ${isMobile && "mt-14"}`}>
+            <div className={`mb-6 ${isMobile && "mt-14"}`}>
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                   <h1
@@ -385,27 +380,20 @@ const ProfileManage = () => {
                   )}
                 </button>
               </div>
-            </motion.div>
+            </div>
 
-            <AnimatePresence>
-              {saveMessage.text && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className={`mb-4 p-3 rounded-xl text-sm ${
-                    saveMessage.type === "success"
-                      ? "bg-green-500/10 text-green-400 border border-green-500/30"
-                      : "bg-red-500/10 text-red-400 border border-red-500/30"
-                  }`}>
-                  {saveMessage.text}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {saveMessage.text && (
+              <div
+                className={`mb-4 p-3 rounded-xl text-sm ${
+                  saveMessage.type === "success"
+                    ? "bg-green-500/10 text-green-400 border border-green-500/30"
+                    : "bg-red-500/10 text-red-400 border border-red-500/30"
+                }`}>
+                {saveMessage.text}
+              </div>
+            )}
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
+            <div
               className={`${getCardBg()} rounded-2xl shadow-lg overflow-hidden mb-6 border ${getBorderColor()}`}>
               <div className="relative h-48 md:h-56 bg-gradient-to-r from-indigo-600 to-blue-600">
                 {profile.banner instanceof File ||
@@ -498,7 +486,7 @@ const ProfileManage = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             <div className="flex flex-wrap gap-1.5 mb-6">
               {tabs.map((tab) => (
@@ -516,10 +504,7 @@ const ProfileManage = () => {
               ))}
             </div>
 
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className={`${getCardBg()} rounded-2xl shadow-lg p-6 border ${getBorderColor()}`}>
               {activeTab === "basic" && (
                 <div>
@@ -798,7 +783,7 @@ const ProfileManage = () => {
                   </div>
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
         <RightSideBar themeMode={themeMode} />

@@ -4,13 +4,15 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      jsxRuntime: 'automatic',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
     tailwindcss()
   ],
   base: '/',
-  server: {
-    hmr: true,
-  },
   resolve: {
     alias: {
       'simple-peer': 'simple-peer/simplepeer.min.js'
@@ -20,23 +22,21 @@ export default defineConfig({
     global: 'globalThis',
   },
   optimizeDeps: {
-    include: ['simple-peer'],
-    esbuildOptions: {
-      define: {
-        global: 'globalThis',
-      },
-    },
+    include: ['@emotion/react', '@emotion/styled', '@emotion/cache', 'simple-peer'],
   },
   build: {
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    sourcemap: false,
-    minify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: {
+          'vendor': ['react', 'react-dom', 'react-router-dom'],
+          'emotion': ['@emotion/react', '@emotion/styled'],
+          'firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+        },
       },
     },
+    chunkSizeWarningLimit: 1000,
   },
 })

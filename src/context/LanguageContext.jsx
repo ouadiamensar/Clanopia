@@ -4,7 +4,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth, db } from "../firebase";
 import { doc, setDoc, onSnapshot } from "firebase/firestore";
 
-// استيراد ملفات الترجمات بشكل ثابت
 import enTranslations from "../translations/en.json";
 import arTranslations from "../translations/ar.json";
 import frTranslations from "../translations/fr.json";

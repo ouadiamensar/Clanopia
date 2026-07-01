@@ -2,21 +2,29 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
+  ],
   build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        keep_fnames: true,
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('firebase')) {
             return 'firebase';
           }
-        }
-      }
-    }
+        },
+      },
+    },
   },
-  // الأسطر الجديدة لحل مشكلة Emotion/MUI:
-  esbuild: {
-    logOverride: { 'this-is-undefined-in-esm': 'silent' },
-    jsxFactory: 'jsx',
-  }
 })

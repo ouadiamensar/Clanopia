@@ -62,7 +62,7 @@ const PostCard = ({ post, themeMode, onPostDeleted }) => {
           "saves",
           "NormalPosts",
           "data",
-          post.id
+          post.id,
         );
         const saveDoc = await getDoc(saveRef);
         setIsSaved(saveDoc.exists());
@@ -96,7 +96,7 @@ const PostCard = ({ post, themeMode, onPostDeleted }) => {
         "saves",
         "NormalPosts",
         "data",
-        post.id
+        post.id,
       );
 
       const saveDoc = await getDoc(saveRef);
@@ -128,7 +128,7 @@ const PostCard = ({ post, themeMode, onPostDeleted }) => {
       }
     } catch (error) {
       console.error("❌ Error saving/unsaving post:", error);
-      alert(`Failed to ${isSaved ? 'unsave' : 'save'} post: ${error.message}`);
+      alert(`Failed to ${isSaved ? "unsave" : "save"} post: ${error.message}`);
     }
   };
 
@@ -346,7 +346,7 @@ const PostCard = ({ post, themeMode, onPostDeleted }) => {
       try {
         const usersRef = collection(db, "users");
         const usersSnapshot = await getDocs(usersRef);
-        
+
         for (const userDoc of usersSnapshot.docs) {
           try {
             const saveRef = doc(
@@ -356,7 +356,7 @@ const PostCard = ({ post, themeMode, onPostDeleted }) => {
               "saves",
               "NormalPosts",
               "data",
-              post.id
+              post.id,
             );
             const saveSnap = await getDoc(saveRef);
             if (saveSnap.exists()) {

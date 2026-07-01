@@ -7,9 +7,9 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: "/" ,
+  base: '/',
   server: {
-    hmr: false,
+    hmr: true,
   },
   resolve: {
     alias: {
@@ -30,6 +30,13 @@ export default defineConfig({
   build: {
     commonjsOptions: {
       transformMixedEsModules: true,
+    },
+    sourcemap: false,
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
     },
   },
 })

@@ -8,6 +8,9 @@ export default defineConfig({
     tailwindcss()
   ],
   base: "/" ,
+  server: {
+    hmr: false,
+  },
   resolve: {
     alias: {
       'simple-peer': 'simple-peer/simplepeer.min.js'

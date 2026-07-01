@@ -4,12 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
-    react({
-      jsxRuntime: 'automatic',
-      babel: {
-        plugins: ['@emotion/babel-plugin'],
-      },
-    }),
+    react(),
     tailwindcss()
   ],
   base: '/',
@@ -22,7 +17,7 @@ export default defineConfig({
     global: 'globalThis',
   },
   optimizeDeps: {
-    include: ['@emotion/react', '@emotion/styled', '@emotion/cache', 'simple-peer'],
+    include: ['simple-peer'],
   },
   build: {
     commonjsOptions: {
@@ -32,7 +27,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor': ['react', 'react-dom', 'react-router-dom'],
-          'emotion': ['@emotion/react', '@emotion/styled'],
           'firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
         },
       },

@@ -294,12 +294,14 @@ const LandingPage = () => {
               <FiX className="w-6 h-6 text-white" />
             </button>
             <div className="aspect-video w-full rounded-2xl overflow-hidden">
-              <iframe
+              <video
                 src={SeeUsCooking}
-                title="Clanopia Demo"
+                controls
                 className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen></iframe>
+                autoPlay={false}
+                loop={false}>
+                Your browser does not support the video tag.
+              </video>
             </div>
             <div className="mt-4 flex items-center justify-between">
               <div>
